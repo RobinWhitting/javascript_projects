@@ -11,7 +11,7 @@ const maxVel = 40;
 const cx = c.width / 2;
 const cy = c.height / 2;
 let order = 0;
-let miltiplier = 0;
+let miltiplier = 100;
 let loaded = 0;
 
 class Item {
@@ -20,7 +20,7 @@ class Item {
     this.img = this.makeImage(imageType);
 
     this.x = x,
-    this.y = y,
+    this.y = start - (order * miltiplier),
     this.fy = y,
     this.velY = 0
   }
