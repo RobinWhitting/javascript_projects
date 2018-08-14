@@ -38,6 +38,9 @@ class Item {
       case "BrickL":
         img.src = '../images/BrickL.png';
         break;
+      case "FloorR-L":
+        img.src = '../images/FloorR-L.png';
+        break;
     }
     return img;
   }
@@ -74,6 +77,7 @@ class Item {
 items.push(new Item('BrickR', cx, cy));
 items.push(new Item('BrickR', cx - 32, cy + 16));
 items.push(new Item('BrickR', cx - 64, cy + 32));
+items.push(new Item('FloorR-L', 100, cy));
 
 
 for (let i = 0; i < items.length; i++) {
