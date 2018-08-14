@@ -1,0 +1,11 @@
+#list li{
+  cursor: pointer;
+}
+
+.selected{
+  background-color: RGBA(119,212,119, 0.5);
+}
+
+.hidden {
+  display: none;
+}
