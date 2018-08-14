@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>Quadtree-js</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+
+				<canvas id="canvas"></canvas>
+		<script src="../quadtree.js"></script>
+
+		<script>
+
+		(function(w, M) {
+
+			w.requestAnimFrame = (function () {
+				return  w.requestAnimationFrame ||
+					w.webkitRequestAnimationFrame ||
+					w.mozRequestAnimationFrame ||
+					w.oRequestAnimationFrame ||
+					w.msRequestAnimationFrame ||
+					function (callback) {
+						w.setTimeout(callback, 1000 / 60);
+					};
+			})();
+			/*
+			 * the main Quadtree
+			 */
+			var myTree = new Quadtree({
+				x: 0,
+				y: 0,
+				width: window.innerWidth,
+				height: window.innerHeight
+			});
+
+			/*
+			 * our objects will be stored here
+			 */
+			var myObjects = [];
+
+			/*
+			 * our "hero"
+			 */
+
+			var c = document.getElementById('canvas');
+			c.width = window.innerWidth;
+			c.height = window.innerHeight;
+			var ctx = c.getContext('2d');
+
+			/*
+			 * position hero at mouse
+			 */
+
+			/*
+			 * hide hero
+			 */
+
+			/*
+			 * create some objects and save them in myObjects
+			 */
+			var createObjects = function() {
+				for( var i=0;i<200;i=i+1 ) {
+					myObjects.push({
+						width : randMinMax(10, 20),
+						height : randMinMax(10, 20),
+						x : randMinMax(20 , c.width - 20),
+						y : randMinMax(20, c.height - 20),
+						vx: randMinMax(-0.5,0.5),
+						vy: randMinMax(-0.5,0.5),
+						check : false
+					});
+				}
+			};
+
+
+			/*
+			 * draw Quadtree nodes
+			 */
+			var drawQuadtree = function( node ) {
+
+				var bounds = node.bounds;
+
+				//no subnodes? draw the current node
+				if( node.nodes.length === 0 ) {
+					ctx.strokeStyle = 'rgba(255,0,0,0.5)';
+					ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+				//has subnodes? drawQuadtree them!
+				} else {
+					for( var i=0;i<node.nodes.length;i=i+1 ) {
+						drawQuadtree( node.nodes[ i ] );
+					}
+				}
+			};
+
+			/*
+			 * draw all objects
+			 */
+			var drawObjects = function() {
+
+				var obj;
+
+				for( var i=0;i<myObjects.length;i=i+1 ) {
+
+					obj = myObjects[ i ];
+
+					if( obj.check ) {
+						ctx.fillStyle = 'rgba(48,255,48,0.5)';
+						ctx.fillRect( obj.x, obj.y, obj.width, obj.height );
+					} else {
+						ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+						ctx.strokeRect( obj.x, obj.y, obj.width, obj.height );
+					}
+
+
+				}
+			};
+
+
+			/**
+			 * return a random number within given boundaries.
+			 *
+			 * @param {number} min		the lowest possible number
+			 * @param {number} max		the highest possible number
+			 * @param {boolean} round	if true, return integer
+			 * @return {number} 		a random number
+			 */
+			randMinMax = function(min, max, round) {
+				var val = min + (Math.random() * (max - min));
+
+				if( round ) val = Math.round( val );
+
+				return val;
+			};
+
+
+			/*
+			 * our main loop
+			 */
+			var loop = function() {
+
+				var candidates = [];
+
+				//clear the tree
+				myTree.clear();
+				ctx.clearRect(0, 0, c.width, c.height);
+
+				//update myObjects and insert them into the tree again
+				for( var i=0;i<myObjects.length;i=i+1 ) {
+
+					myObjects[i].x += myObjects[i].vx;
+					myObjects[i].y += myObjects[i].vy;
+					myObjects[i].check = false;
+
+					if (myObjects[i].x + myObjects[i].width >= c.width || myObjects[i].x <= 0) {
+						myObjects[i].vx = -myObjects[i].vx;
+					}
+					if (myObjects[i].y + myObjects[i].height >= c.height || myObjects[i].y <= 0) {
+						myObjects[i].vy = -myObjects[i].vy;
+					}
+
+					myTree.insert( myObjects[i] );
+				}
+
+
+					//retrieve all objects in the bounds of the hero
+					candidates = myTree.retrieve( myObjects );
+
+					//flag retrieved objects
+					for( i=0;i<candidates.length;i=i+1 ) {
+						candidates[ i ].check = true;
+					}
+
+
+				drawQuadtree( myTree );
+				drawObjects();
+				requestAnimFrame( loop );
+			};
+
+			//create objects
+			createObjects();
+
+			//init first loop
+			loop();
+
+			//make myTree available in global namespace
+			w.myTree = myTree;
+
+		})(window, Math);
+		</script>
+	</body>
+</html>

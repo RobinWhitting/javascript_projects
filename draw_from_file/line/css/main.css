@@ -1,0 +1,26 @@
+*{
+  padding:0;
+  margin:0;
+}
+
+#canvas {
+  display: block;
+}
+
+#next, #start, #previous {
+  position: absolute;
+  top: 0;
+}
+
+#previous{
+  left:10px;
+}
+
+#next{
+  right:10px;
+}
+
+#start {
+  left:50%;
+  transform: translateX(-50%);
+}

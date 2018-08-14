@@ -1,0 +1,33 @@
+html, body{
+  margin:0;
+  padding: 0;
+}
+
+div#mp3Player{
+  background: #000;
+}
+
+
+canvas {
+  display: block;
+}
+
+#song1{
+  position: absolute;
+  height: 30px;
+  font-size: 1em;
+  text-align: center;
+  vertical-align: middle;
+  top:80px;
+  left:20px;
+}
+
+#song2{
+  position: absolute;
+  height: 30px;
+  font-size: 1em;
+  text-align: center;
+  vertical-align: middle;
+  top:120px;
+  left:20px;
+}
