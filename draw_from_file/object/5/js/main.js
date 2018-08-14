@@ -10,9 +10,13 @@ const cy = c.height / 2;
 const start = 0;
 const gravity = 0.98;
 const maxVel = 160;
+const yStart = -10;
+let xStart = 0;
 let order = 0;
 let miltiplier = 100;
 let loaded = 0;
+let xOffset = 0;
+
 
 class Item {
   constructor (imageType, x, y) {
@@ -77,33 +81,38 @@ class Item {
   }
 }
 
-// items.push(new Item('BrickR', cx, cy));
-// items.push(new Item('BrickL', cx +100, cy));
-// items.push(new Item('FloorR-L', 100, cy));
-
-for (var i = 0; i < c.width + 200; i++) {
-  if (i % 32 === 0) {
-    items.push(new Item('FloorL-L', c.width - i, cy));
+for (let j = 0; j < 160; j += 80) {
+  yOffset = j;
+  xOffset = j * 2;
+  for (let i = 0; i < 320; i++) {
+    if (i % 16 === 0) {
+      items.push(new Item('FloorL-L', ((cx - 50) - i) + xOffset, (cy - 100) + (i / 2 + yOffset)));
+    }
   }
 }
 
-// items.push(new Item('FloorL-L', c.width - 64, cy + 80));
-// items.push(new Item('FloorL-L', c.width - 114, cy));
-// items.push(new Item('FloorL-L', c.width - 146, cy));
-// items.push(new Item('FloorL-L', c.width - 178, cy));
-// items.push(new Item('FloorL-L', c.width - 210, cy));
-// items.push(new Item('FloorL-L', c.width - 178, cy));
-// items.push(new Item('FloorL-L', c.width - 178, cy));
-// items.push(new Item('FloorL-L', c.width - 178, cy));
-// items.push(new Item('FloorL-L', c.width - 178, cy));
+
+
+
+
+// for (let j = yStart; j < c.height; j += 80){
+//   if ((j - yStart) % 160 === 0) {
+//     xStart = -64;
+//   }
+//   else {
+//     xStart = 0;
+//   }
+//   for (let i = xStart; i < c.width + 180; i++) {
+//     if (i % 32 === 0) {
+//       items.push(new Item('FloorL-L', (c.width - i) + xOffset,  j));
+//     }
+//   }
+// }
 
 
 for (let i = 0; i < items.length; i++) {
   items[i].img.onload = function() {
     loaded++;
-    // ctx.beginPath();
-    // // ctx.drawImage(items[i].img, items[i].x, items[i].y);
-    // ctx.closePath();
     if (loaded === items.length) {startBtn.className = '';}
   }
 }
