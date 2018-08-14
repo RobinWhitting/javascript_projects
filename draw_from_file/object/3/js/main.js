@@ -75,8 +75,7 @@ class Item {
 }
 
 items.push(new Item('BrickR', cx, cy));
-items.push(new Item('BrickR', cx - 32, cy + 16));
-items.push(new Item('BrickR', cx - 64, cy + 32));
+items.push(new Item('BrickL', cx +100, cy));
 items.push(new Item('FloorR-L', 100, cy));
 
 
