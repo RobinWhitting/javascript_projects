@@ -20,11 +20,38 @@ let loaded = 0;
 let xOffset = 0;
 
 let office = [
-    {name: "DeskL", x: 0, y: 0},
-    {name: "WallLampR", x:110, y:-15},
-    {name: "WallLampR", x:50, y:-45},
-    {name: "GameBoyCartridge4", x:90, y:45},
-    {name: "GameBoyBlue", x:85, y:45}
+
+    {name: "BrickL", x:56, y:28}, //row 1
+    {name: "BrickL", x:72, y:36},
+    {name: "BrickL", x:88, y:44},
+    {name: "BrickL", x:104, y:52},
+    {name: "BrickL", x:120, y:60},
+    {name: "BrickL", x:136, y:68},
+    {name: "BrickL", x:152, y:76},
+    {name: "BrickL", x:168, y:84},
+    {name: "BrickL", x:184, y:92},
+    {name: "BrickR", x:24, y:32},
+    {name: "BrickR", x:8, y:40},
+    {name: "BrickR", x:-8, y:48},
+    {name: "BrickR", x:-24, y:56},
+
+    {name: "BrickL", x:64, y:26}, //row 2
+    {name: "BrickL", x:80, y:34},
+    {name: "BrickL", x:96, y:42},
+    {name: "BrickL", x:112, y:50},
+    {name: "BrickL", x:128, y:58},
+    {name: "BrickL", x:144, y:66},
+    {name: "BrickL", x:160, y:74},
+    {name: "BrickL", x:176, y:82},
+    {name: "BrickR", x:36, y:32},
+
+    // {name: "DeskL", x: 0, y: 0},
+    // {name: "WallLampR", x:110, y:-15},
+    // {name: "WallLampR", x:50, y:-45},
+    // {name: "GameBoyCartridge4", x:90, y:45},
+    // {name: "GameBoyBlue", x:85, y:45},
+    // {name: "Printer", x:104, y:67},
+    // {name: "Macbook", x:40, y:20},
 
   ];
 
@@ -47,7 +74,7 @@ class Item {
     let source = '';
     switch (input) {
       case "BrickR":
-        source = '../images/Brick.png';
+        source = '../images/BrickR.png';
         this.fy -= 39;
         this.x -= 17;
       break;
@@ -84,6 +111,16 @@ class Item {
       break;
       case "GameBoyCartridge4":
         source = '../images/GameBoyCartridge4.png';
+        this.fy -= 18;
+        this.x -= 0;
+      break;
+      case "Printer":
+        source = '../images/Printer.png';
+        this.fy -= 18;
+        this.x -= 0;
+      break;
+      case "Macbook":
+        source = '../images/Macbook.png';
         this.fy -= 18;
         this.x -= 0;
       break;
