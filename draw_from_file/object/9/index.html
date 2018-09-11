@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="../../css/master.css">
+    <link rel="stylesheet" href="css/master.css">
     <meta charset="utf-8">
     <title></title>
   </head>
   <body>
     <a href="../8/" id="previous">Previous</a>
-    <!-- <a href="../7/" id="next">Next</a> -->
+    <!-- <a href="../9/" id="next">Next</a> -->
     <a href="#" id="start" class="hidden">Start</a>
-    <canvas id="canvas"></canvas>
+    <div class="flex">
+      <div id="canvasHolder">
+        <canvas id="garden"></canvas>
+        <canvas id="basement"></canvas>
+        <canvas id="living_room"></canvas>
+        <canvas id="attic"></canvas>
+      </div>
+    </div>
+
+    <script src="js/house.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

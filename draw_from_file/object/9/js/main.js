@@ -1,81 +1,69 @@
-const c = document.getElementById('canvas');
 const startBtn = document.getElementById('start');
-c.width = window.innerWidth;
-c.height = window.innerHeight;
-const ctx = c.getContext('2d');
-ctx.imageSmoothingEnabled = false;
-const items = [];
-const cx = c.width / 2;
-const cy = c.height / 2;
-const start = c.height / 2;
+const canvasBasement = document.getElementById('basement');
+const canvasGarden = document.getElementById('garden');
+const canvasLivingRoom = document.getElementById('living_room');
+const canvasAttic = document.getElementById('attic');
+canvasBasement.width = canvasGarden.width =/*
+canvasLivingRoom.width = canvasAttic.width =*/ 400;
+
+canvasBasement.height = canvasGarden.height /*=
+canvasLivingRoom.height = canvasAttic.height*/ = window.innerHeight;
+
+const cBasement = canvasBasement.getContext('2d');
+const cGarden = canvasGarden.getContext('2d');
+// const cLivingRoom = canvasLivingRoom.getContext('2d');
+// const cAttic = canvasAttic.getContext('2d');
+
+cBasement.imageSmoothingEnabled /*= cGarden.imageSmoothingEnabledfalse = cLivingRoom.imageSmoothingEnabled =
+cAttic.imageSmoothingEnabled */= false;
+const basementItems = [];
+
 const gravity = 0.98;
 const maxVel = 20;
-const yStart = 0;
-let xStart = 0;
+const yStart = 1000;
 let order = 0;
-let multiplier = 0;
 let loaded = 0;
-let xOffset = 0;
-
-let basement = [];
-
-class Plank_l {
-  constructor (_length) {
-    this.startImg = this.makeImage('../images/Plank_l_e1.png'),
-    this.midImg = this.makeImage('../images/Plank_l_m.png'),
-    this.endImg = this.makeImage('../images/Plank_l_e2.png'),
-    this.minLength = 6,
-    this.maxLength = 200,
-    this.length = this.calcLength(_length);
-  }
-
-  calcLength(len) {
-    if (len < this.minLength) {
-      return this.minLength;
-    }
-    else if (len > this.maxLength) {
-      return this.maxLength;
-    }
-    else {
-      return len;
-    }
-  }
-
-  draw() {
-      ctx.drawImage(this.startImg, cx, cy);
-      for (let i = 0; i < this.length; i+=2) {
-        ctx.drawImage(this.midImg, cx + i + 2, cy + (i/2) + 2);
-      }
-      ctx.drawImage(this.endImg, cx + this.length+2, cy + (this.length / 2)+2);
-  }
-  makeImage (src) {
-    let img = new Image();
-    img.src = src;
-    return img;
-  }
-}
+let multiplier = 100;
 
 
 class Item {
-  constructor (imageType, x, y, order) {
+  constructor (layer, imageType, x, y, order) {
     order++,
     this.x = x,
     this.y = y - yStart - (multiplier * order),
     this.fy = y,
-    this.img = this.makeImage(this.imageCalc(imageType));
-    this.velY = 0;
+    this.img = this.makeImage(this.imageCalc(imageType)),
+    this.velY = 0,
+    this.layer = layer
   }
 
   draw () {
-    ctx.drawImage(this.img, this.x, this.y);
+    if (this.layer === 'basement') {
+      cBasement.drawImage(this.img, this.x + (canvasBasement.width / 2), this.y + 250);
+    }
+    else if (this.layer === 'garden') {
+      cGarden.drawImage(this.img, this.x + (canvasBasement.width / 2), this.y + 250);
+    }
   }
 
   imageCalc (input) {
     let source = '';
     switch (input) {
-      case "Plank_l":
-        source = '../images/plank_l.png';
-      break;
+      case "BrickR": source = '../images/BrickR.png'; break;
+      case "BrickL": source = '../images/BrickL.png'; break;
+      case "FloorR-L": source = '../images/FloorR-L.png'; break;
+      case "PlankL": source = '../images/PlankL.png'; break;
+      case "Grass": source = '../images/Grass.png';break;
+      case "DeskL":source = '../images/deskL.png'; break;
+      case "WallLampR": source = '../images/WallLampR.png'; break;
+      case "GameBoyBlue": source = '../images/GameBoyBlue.png'; break;
+      case "GameBoyCartridge4": source = '../images/GameBoyCartridge4.png'; break;
+      case "Printer": source = '../images/Printer.png'; break;
+      case "Macbook": source = '../images/Macbook.png'; break;
+      case "LightSwitch": source = '../images/light_switch.png'; break;
+      case "Painting": source = '../images/painting.png'; break;
+      case "Grass_C_L": source = '../images/grass_cut_left.png'; break;
+      case "Grass_C_R": source = '../images/grass_cut_right.png'; break;
     }
     return source;
   }
@@ -114,47 +102,27 @@ class Item {
     }
   }
 }
-  for (let i = 0; i < basement.length; i++) {
-    items.push(new Item(basement[i].name, cx + basement[i].x, cy + basement[i].y, i));
+
+
+for (let i = 0; i < basementArray.length; i++) {
+  basementItems.push(new Item(basementArray[i].layer, basementArray[i].name, basementArray[i].x, basementArray[i].y, basementArray[i].order));
+}
+
+for (let i = 0; i < basementItems.length; i++) {
+  basementItems[i].img.onload = function() {
+    loaded++;
+    if (loaded === basementItems.length) {/*mainLoop();*/startBtn.className = '';}
   }
-
-
+}
 
 
 const mainLoop = () => {
-  ctx.clearRect(0, 0, c.width, c.height);
-  // ctx.beginPath();
-  // ctx.strokeWeight = 2;
-  // ctx.moveTo(0, c.height / 2);
-  // ctx.lineTo(c.width, c.height / 2);
-  // ctx.moveTo(c.width / 2, 0);
-  // ctx.lineTo(c.width / 2, c.height);
-  // ctx.stroke();
-  // ctx.closePath();
-  for (let i = 0; i < planks.length; i++) {
-    planks[i].draw();
+  cBasement.clearRect(0, 0, canvasBasement.width, canvasBasement.height);
+  cGarden.clearRect(0, 0, canvasGarden.width, canvasGarden.height);
+  for (let i = 0; i < basementItems.length; i++) {
+    basementItems[i].update();
   }
   requestAnimationFrame(mainLoop);
-}
-
-let planks = [];
-for (let i = 0; i < 2; i++) {
-  planks.push(new Plank_l(200));
-}
-
-for (let i = 0; i < planks.length; i++) {
-  planks[i].startImg.onload = function() {
-    loaded++;
-    if (loaded === planks.length * 3) {mainLoop();/*startBtn.className = '';*/}
-  }
-  planks[i].midImg.onload = function() {
-    loaded++;
-    if (loaded === planks.length * 3) {mainLoop();/*startBtn.className = '';*/}
-  }
-  planks[i].endImg.onload = function() {
-    loaded++;
-    if (loaded === planks.length * 3) {mainLoop();/*startBtn.className = '';*/}
-  }
 }
 
 

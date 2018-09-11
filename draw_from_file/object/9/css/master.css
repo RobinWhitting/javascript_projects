@@ -1,0 +1,51 @@
+canvas{
+  display: block;
+  position: absolute;
+  top:0;
+}
+
+*{
+  padding:0;
+  margin:0;
+}
+
+#next, #previous, #start, .next{
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  top:10px;
+  right:10px;
+  z-index:100;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  padding:5px;
+  color: #000;
+  box-shadow:1px 3px 15px #ccc;
+  background-color: #fff;
+}
+
+#previous{
+  left:10px;
+}
+
+#start{
+  top:calc(50% - 10px);
+  left:calc(50% - 50px);
+}
+
+.hidden{
+  display:none;
+}
+
+div.flex {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.flex #canvasHolder{
+  width: 310px;
+}
