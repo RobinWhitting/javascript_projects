@@ -24,7 +24,7 @@ const yStart = 1000;
 let order = 0;
 let loaded = 0;
 let multiplier = 50; //50 max
-let skipStart = true;
+let skipStart = false;
 let guidelines = false;
 
 
