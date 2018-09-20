@@ -20,10 +20,10 @@ const basementItems = [];
 
 const gravity = 0.98;
 const maxVel = 20;
-const yStart = 0;
+const yStart = 1000;
 let order = 0;
 let loaded = 0;
-let multiplier = 0; //50 max
+let multiplier = 10; //50 max
 let skipStart = false;
 let guidelines = false;
 

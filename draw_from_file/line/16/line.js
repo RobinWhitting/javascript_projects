@@ -30,7 +30,7 @@ const animate = () => {
 
 const buttons = () => {
   let url = window.location.href.split('/');
-  document.getElementById('next').href = '../' + next(url) + '/';
+  // document.getElementById('next').href = '../' + next(url) + '/';
   document.getElementById('previous').href = '../' + previous(url) + '/';
 }
 

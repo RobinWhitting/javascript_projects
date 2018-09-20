@@ -33,7 +33,7 @@ class Item {
     let img = new Image();
     switch (input) {
       case "BrickR":
-        img.src = '../images/Brick.png';
+        img.src = '../images/BrickR.png';
         break;
       case "BrickL":
         img.src = '../images/BrickL.png';
