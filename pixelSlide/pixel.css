@@ -1,0 +1,68 @@
+*{
+  padding:0;
+  margin:0;
+}
+
+canvas{
+  display: block;
+}
+
+.manipButton{
+  position: fixed;
+  right:10px;
+  width: auto;
+  height: 20px;
+  line-height:20px;
+  color: #000;
+  background-color: #fff;
+  padding:10px;
+  text-decoration: none;
+}
+
+#btnRed{
+  top:10px;
+}
+
+#btnGreen{
+  top:60px;
+}
+
+#btnBlue{
+  top: 110px;
+}
+
+#btnRG{
+  top:160px;
+}
+
+#btnRB{
+  top:210px;
+}
+
+#btnGB{
+  top:260px;
+}
+
+#btnBWS{
+  top:310px;
+}
+
+#btnBWV{
+  top: 360px;
+}
+
+#btnReset{
+  top: 410px;
+}
+
+.cRed{
+  color: red;
+}
+
+.cBlue{
+  color: blue;
+}
+
+.cGreen{
+  color: green;
+}
